@@ -27,6 +27,7 @@
                         <div class="card-body">
                             <h6 class="card-subtle">{{ post.date_created.strftime('%A %b %d, %Y at %I:%M%p') }}</h6>
                             <h5 class="card-title">{{ post.title }}</h5>
+                            <h6 class="card-subtle">By: {{post.author.username }}</h6>
                             <p class="card-text">{{ post.body }}</p>
                         </div>
                     </div>
