@@ -7,7 +7,8 @@ from app.models import User, Post
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    posts = db.session.execute(db.select(Post)).scalars()
+    return render_template('index.html', posts=posts)
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
@@ -77,10 +78,10 @@ def create_post():
     if form.validate_on_submit():
         title = form.title.data
         body = form.body.data
-        image_url = form.image_url.data
+        image_url = form.image_url.data or None
         print(title, body, image_url, current_user.id)
         # Create an instance of Post with form title and body and the logged in user's id
-        new_post = Post(title=title, body=body, user_id=current_user.id)
+        new_post = Post(title=title, body=body, user_id=current_user.id, image_url=image_url)
         # Add the new post to the database
         db.session.add(new_post)
         db.session.commit()

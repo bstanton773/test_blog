@@ -2,6 +2,7 @@ from app import db, login
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from random import randint
 
 
 # CREATE TABLE user(
@@ -33,12 +34,16 @@ def get_user(user_id):
     return db.session.get(User, user_id)
 
 
+def random_photo():
+    return f"https://picsum.photos/500?random={randint(1,100)}"
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     body = db.Column(db.String, nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) # SQL - FOREIGN KEY(user_id) REFERENCES user(id)
+    image_url = db.Column(db.String(100), default=random_photo)
 
     def __repr__(self):
         return f"<Post {self.id}|{self.title}>"

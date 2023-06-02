@@ -17,20 +17,22 @@
         <div class="col-12 col-lg-8 order-1 order-lg-0">
             
             <!-- Post Display -->
+            {% for post in posts %}
             <div class="card mt-3 bg-primary-subtle border-danger-subtle">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="https://picsum.photos/500" alt="random" class="card-img-top p-3">
+                        <img src="{{ post.image_url }}" alt="random" class="card-img-top p-3">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h6 class="card-subtle">May 31, 2023</h6>
-                            <h5 class="card-title">Post Title</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt aliquam necessitatibus aperiam magni vero maiores mollitia incidunt rerum minima iste, eum culpa nostrum. Sunt, soluta quisquam provident labore modi magnam.</p>
+                            <h6 class="card-subtle">{{ post.date_created.strftime('%A %b %d, %Y at %I:%M%p') }}</h6>
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.body }}</p>
                         </div>
                     </div>
                 </div>
             </div>
+            {% endfor %}
 
         </div>
 
